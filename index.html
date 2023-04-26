@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>Happy Eid Mubarak</title>
+</head>
+<body>
+  <div class="container">
+    <video id="cam" width="100%" height="50%" autoplay></video>
+    <img src="./hello.gif" alt="hello" id="animationImage">
+    <div class="text" id="content">
+      Hello Cantik
+    </div>
+    <button class="btn" id="buttonNext" onclick="nextStep()">
+      Lanjut
+    </button>
+  </div>
+</body>
+<script>
+  let currentStep = 0;
+  let steps = [
+    {
+      content: "Hello Cantik",
+      image: "./hello.gif",
+      textButton: "Lanjut",
+    },
+    {
+      content: "Aku mau ucapin sesuatu nih..",
+      image: "./hello.gif",
+      textButton: "Lanjut lagii...",
+    },
+    {
+      content: "Selamat Idul Fitri ya ayoo kirim pap kamu dong aku kangen...",
+      image: "./eid-greetings.gif",
+      textButton: "Upload",
+    },
+    {
+      content: "AYOOO KIRIM CEPETTT AYANGGG",
+      image: "./eid-greetings.gif",
+      textButton: "Kirim",
+    },
+  ];
+  document.getElementById("cam").style.display = 'none';
+  function nextStep() {
+    ++currentStep;
+    if(currentStep < steps.length-1)
+    {
+      document.getElementById('content').innerHTML = steps[currentStep].content;
+      document.getElementById('buttonNext').innerHTML = steps[currentStep].textButton;
+      document.getElementById('animationImage').setAttribute('src', steps[currentStep].image);
+    }else{
+      // window.location.href = "https://wa.me/628888888888"
+      document.getElementById("animationImage").style.display = "none";
+      document.getElementById('content').innerHTML = steps[currentStep].content;
+      document.getElementById('buttonNext').innerHTML = steps[currentStep].textButton;
+      document.getElementById('animationImage').setAttribute('src', steps[currentStep].image);
+      document.getElementById("cam").style.display = "block";
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          var video = document.getElementById("cam");
+          video.srcObject = stream;
+          video.play();
+        })
+        .catch(function(err) {
+          console.log("An error occurred: " + err);
+        });
+    }
+  }
+</script>
+</html>
